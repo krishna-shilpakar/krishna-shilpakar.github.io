@@ -155,7 +155,7 @@ Install xmpp4r gem. To know more on xmpp4r go ahead and visit <code><a href="htt
 </span><span class='line'>  <span class="n">client</span> <span class="o">=</span> <span class="ss">Jabber</span><span class="p">:</span><span class="ss">:Client</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">jid</span><span class="p">)</span>
 </span><span class='line'>  <span class="n">client</span><span class="o">.</span><span class="n">connect</span>
 </span><span class='line'>
-</span><span class='line'>  <span class="n">client</span><span class="o">.</span><span class="n">auth</span><span class="p">(</span><span class="s1">&#39;kkkkkk&#39;</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">client</span><span class="o">.</span><span class="n">auth</span><span class="p">(</span><span class="s1">&#39;mysecretpassword&#39;</span><span class="p">)</span>
 </span><span class='line'>  <span class="n">client</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="no">Presence</span><span class="o">.</span><span class="n">new</span><span class="o">.</span><span class="n">set_type</span><span class="p">(</span><span class="ss">:available</span><span class="p">))</span>
 </span></code></pre></td></tr></table></div></figure>
 
@@ -280,6 +280,35 @@ Define the maximum inactivity period in seconds. Default value is 30 seconds.</p
       </li>
     
   </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/krishna-shilpakar">@krishna-shilpakar</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'krishna-shilpakar',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
 </section>
 
 

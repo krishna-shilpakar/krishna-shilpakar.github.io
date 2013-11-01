@@ -4,7 +4,7 @@
   <title><![CDATA[Category: ejabberd | Krishna Shilpakar]]></title>
   <link href="http://krishna-shilpakar.github.io/blog/categories/ejabberd/atom.xml" rel="self"/>
   <link href="http://krishna-shilpakar.github.io/"/>
-  <updated>2013-11-01T23:05:22+05:45</updated>
+  <updated>2013-11-01T23:11:54+05:45</updated>
   <id>http://krishna-shilpakar.github.io/</id>
   <author>
     <name><![CDATA[Krishna Shilpakar]]></name>
@@ -79,7 +79,7 @@ Install xmpp4r gem. To know more on xmpp4r go ahead and visit <code><a href="htt
 </span><span class='line'>  <span class="n">client</span> <span class="o">=</span> <span class="ss">Jabber</span><span class="p">:</span><span class="ss">:Client</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">jid</span><span class="p">)</span>
 </span><span class='line'>  <span class="n">client</span><span class="o">.</span><span class="n">connect</span>
 </span><span class='line'>
-</span><span class='line'>  <span class="n">client</span><span class="o">.</span><span class="n">auth</span><span class="p">(</span><span class="s1">&#39;kkkkkk&#39;</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">client</span><span class="o">.</span><span class="n">auth</span><span class="p">(</span><span class="s1">&#39;mysecretpassword&#39;</span><span class="p">)</span>
 </span><span class='line'>  <span class="n">client</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="no">Presence</span><span class="o">.</span><span class="n">new</span><span class="o">.</span><span class="n">set_type</span><span class="p">(</span><span class="ss">:available</span><span class="p">))</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 

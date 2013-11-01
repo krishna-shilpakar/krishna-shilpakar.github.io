@@ -6,5 +6,5 @@
   client = Jabber::Client.new(jid)
   client.connect
 
-  client.auth('kkkkkk')
+  client.auth('mysecretpassword')
   client.send(Presence.new.set_type(:available))
