@@ -2,15 +2,185 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Krishna Shilpakar]]></title>
-  <link href="http://yoursite.com/atom.xml" rel="self"/>
-  <link href="http://yoursite.com/"/>
-  <updated>2013-10-03T11:14:53+05:45</updated>
-  <id>http://yoursite.com/</id>
+  <link href="http://krishna-shilpakar.github.io/atom.xml" rel="self"/>
+  <link href="http://krishna-shilpakar.github.io/"/>
+  <updated>2013-11-01T23:05:22+05:45</updated>
+  <id>http://krishna-shilpakar.github.io/</id>
   <author>
     <name><![CDATA[Krishna Shilpakar]]></name>
     
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[How to setup ejabberd on Ubuntu]]></title>
+    <link href="http://krishna-shilpakar.github.io/blog/2013/11/01/how-to-setup-ejabberd-on-ubuntu/"/>
+    <updated>2013-11-01T21:21:00+05:45</updated>
+    <id>http://krishna-shilpakar.github.io/blog/2013/11/01/how-to-setup-ejabberd-on-ubuntu</id>
+    <content type="html"><![CDATA[<p>Considering Installation of Ejabberd on ubuntu 12.04.</p>
+
+<p>Installing ejabberd on ubuntu is pretty easy.</p>
+
+<pre><code>  $ apt-get update
+  $ apt-get install -y ejabberd
+</code></pre>
+
+<p>This will install ejabberd and start the ejabberd server too. While writing this post, ejabberd 2.1.10 version was installed.</p>
+
+<pre><code>  $ ejabberdctl register admin localhost yoursecretpassword
+</code></pre>
+
+<p>This command will create a <code>admin</code> user. Lets give admin privileges to newly created <code>admin</code> user. Find the Admin user part in <code>/etc/ejabberd/ejabberd.cfg</code> and modify it to</p>
+
+<pre><code>  %% Admin user
+  {acl, admin, {user, "admin", "localhost"}}.
+</code></pre>
+
+<p>By default hostname used by eJabberd is &lsquo;localhost&rsquo;, which can be modified as your wish. Also we could add multiple domain too. Lets add <code>ejabberd-domain</code> in Hostname part.</p>
+
+<pre><code>  %% Hostname
+  {hosts, ["ejabberd-domain", "localhost"]}.
+</code></pre>
+
+<p>Restart ejabberd <code>service ejabberd restart</code>. Now you will be able to see ejabberd admin interface by navigating to ejabberd running ubuntu ipaddress on port 5280. <code><a href="http://localhost:5280/admin">http://localhost:5280/admin</a></code>.</p>
+
+<h1>Working with Xmpp4r</h1>
+
+<p>I will show you how to communicate with ejabberd using xmpp4r gem.
+Install xmpp4r gem. To know more on xmpp4r go ahead and visit <code><a href="http://xmpp4r.github.io/">http://xmpp4r.github.io/</a></code> and its documentation <code><a href="http://home.gna.org/xmpp4r/rdoc">http://home.gna.org/xmpp4r/rdoc</a></code>.</p>
+
+<pre><code>  $ gem install xmpp4r
+</code></pre>
+
+<p>Add a new ejabberd user, so that we could use xmpp4r basic functionality. Ejabberd user could be either register from command line or directly from admin interface. <code><a href="http://localhost:5280/admin">http://localhost:5280/admin</a></code>. We could add a user under host <code>ejabberd-domain</code>which we have register above. For simplicity lets add under domain <code>localhost</code>.</p>
+
+<pre><code>  $ ejabberdctl register krishna localhost mysecretpassword
+</code></pre>
+
+<p>Below is the ruby xmpp4r snippet to authenticate user <code>krishna</code> and to make user <code>available/online</code>.</p>
+
+<figure class='code'><figcaption><span> (xmpp4r_client.rb)</span> <a href='http://krishna-shilpakar.github.io/downloads/code/xmpp4r_client.rb'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='rb'><span class='line'>  <span class="nb">require</span> <span class="s1">&#39;rubygems&#39;</span>
+</span><span class='line'>  <span class="nb">require</span> <span class="s1">&#39;xmpp4r&#39;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="ss">Jabber</span><span class="p">:</span><span class="ss">:debug</span><span class="o">=</span><span class="kp">true</span>
+</span><span class='line'>  <span class="n">jid</span> <span class="o">=</span> <span class="ss">Jabber</span><span class="p">:</span><span class="ss">:JID</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&quot;krishna@localhost&quot;</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">client</span> <span class="o">=</span> <span class="ss">Jabber</span><span class="p">:</span><span class="ss">:Client</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">jid</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">client</span><span class="o">.</span><span class="n">connect</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">client</span><span class="o">.</span><span class="n">auth</span><span class="p">(</span><span class="s1">&#39;kkkkkk&#39;</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">client</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="no">Presence</span><span class="o">.</span><span class="n">new</span><span class="o">.</span><span class="n">set_type</span><span class="p">(</span><span class="ss">:available</span><span class="p">))</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h1>mod_http_bind</h1>
+
+<p>This module implements XMPP over Bosh (formerly known as HTTP Binding) as defined in XEP-0124 and XEP-0206. It extends ejabberd’s built in HTTP service with a configurable resource at which this service will be hosted.</p>
+
+<p>To use HTTP-Binding, enable the module:</p>
+
+<pre><code>  %%%   =======
+  %%%   MODULES
+
+  %%
+  %% Modules enabled in all ejabberd virtual hosts.
+  %%
+  {modules,
+    [
+      ...
+        {mod_http_bind,[]},
+      ...
+    ]}
+</code></pre>
+
+<p>and add http_bind in the HTTP service. For example:</p>
+
+<pre><code>  %%%   ===============
+  %%%   LISTENING PORTS
+
+  %%
+  %% listen: Which ports will ejabberd listen, which service handles it
+  %% and what options to start it with.
+  %%
+  {listen,
+   [
+    ...
+    {5280, ejabberd_http, [
+                 captcha,
+                 http_bind, 
+                 http_poll, 
+                 web_admin
+                ]}
+    ...
+    ]}
+</code></pre>
+
+<p>With this configuration, the module will serve the requests sent to <code><a href="http://localhost:5280/http-bind/">http://localhost:5280/http-bind/</a></code> Remember that this page is not designed to be used by web browsers, it is used by XMPP clients that support XMPP over Bosh.</p>
+
+<p>If you want to set the service in a different URI path or use a different module, you can configure it manually using the option request_handlers. For example:</p>
+
+<pre><code>  {listen,
+   [
+    ...
+
+    {5280, ejabberd_http, [
+                     {request_handlers, [
+            {["http-bind"], mod_http_bind}
+         ]},
+         captcha, 
+         http_poll, 
+         web_admin
+        ]}
+    ...
+  ]}
+</code></pre>
+
+<p>Options:</p>
+
+<p>{max_inactivity, Seconds}
+Define the maximum inactivity period in seconds. Default value is 30 seconds.</p>
+
+<h1>XMPP: BOSH and Xmpp4r BOSH client</h1>
+
+<p>After enabling mod_http_bind, we could build a xmpp4r bosh client. Below is the sample xmpp4r BOSH client.</p>
+
+<figure class='code'><figcaption><span> (xmpp4r_bosh_client.rb)</span> <a href='http://krishna-shilpakar.github.io/downloads/code/xmpp4r_bosh_client.rb'>download</a></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="nb">require</span> <span class="s1">&#39;rubygems&#39;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;xmpp4r&#39;</span>
+</span><span class='line'><span class="nb">require</span> <span class="s1">&#39;xmpp4r/httpbinding/client&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="ss">Jabber</span><span class="p">:</span><span class="ss">:debug</span><span class="o">=</span><span class="kp">true</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">client</span> <span class="o">=</span> <span class="ss">Jabber</span><span class="p">:</span><span class="ss">:HTTPBinding</span><span class="o">::</span><span class="no">Client</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s2">&quot;krishna@localhost/myresource&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="n">client</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;http://localhost:5280/http-bind&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">client</span><span class="o">.</span><span class="n">auth</span><span class="p">(</span><span class="s1">&#39;mysecretpassword&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="n">client</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="no">Presence</span><span class="o">.</span><span class="n">new</span><span class="o">.</span><span class="n">set_type</span><span class="p">(</span><span class="ss">:available</span><span class="p">))</span>
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
   
 </feed>

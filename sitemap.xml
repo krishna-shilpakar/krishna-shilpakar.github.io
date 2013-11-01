@@ -1,23 +1,29 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
-        <loc>http://yoursite.com/archives/</loc>
-        <lastmod>2013-10-03T11:07:44+05:45</lastmod>
+        <loc>
+            http://krishna-shilpakar.github.io/blog/2013/11/01/how-to-setup-ejabberd-on-ubuntu/
+        </loc>
+        <lastmod>2013-11-01T23:04:18+05:45</lastmod>
     </url>
     <url>
-        <loc>http://yoursite.com/blog/archives/</loc>
-        <lastmod>2013-10-03T11:07:44+05:45</lastmod>
+        <loc>http://krishna-shilpakar.github.io/archives/</loc>
+        <lastmod>2013-11-01T23:04:18+05:45</lastmod>
     </url>
     <url>
-        <loc>http://yoursite.com/blog/</loc>
-        <lastmod>2013-10-03T11:07:44+05:45</lastmod>
+        <loc>http://krishna-shilpakar.github.io/blog/archives/</loc>
+        <lastmod>2013-11-01T23:04:18+05:45</lastmod>
     </url>
     <url>
-        <loc>http://yoursite.com/</loc>
-        <lastmod>2013-10-03T11:07:44+05:45</lastmod>
+        <loc>http://krishna-shilpakar.github.io/blog/</loc>
+        <lastmod>2013-11-01T23:04:18+05:45</lastmod>
     </url>
     <url>
-        <loc>http://yoursite.com/robots.txt</loc>
+        <loc>http://krishna-shilpakar.github.io/</loc>
+        <lastmod>2013-11-01T23:04:18+05:45</lastmod>
+    </url>
+    <url>
+        <loc>http://krishna-shilpakar.github.io/robots.txt</loc>
         <lastmod>2013-10-03T11:07:44+05:45</lastmod>
     </url>
 </urlset>
